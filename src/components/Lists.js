@@ -6,7 +6,6 @@ import '../App.css'
 const List = ({ initialList }) => {
     const [list, setList] = useState(initialList);
     const [favList, setfavList] = useState([]);
-    const [test, setTest] = useState(new Set([]));
     const [color, setColor] = useState('#FFFFFF');
 
 
@@ -15,9 +14,10 @@ const List = ({ initialList }) => {
         , [initialList]);
 
     const onRemove = (item) => {
-        var set = test.add(item)
-        setTest(set)
-        setfavList(Array.from(test))
+
+        if(!favList.some(i =>i.id===item.id)){
+            setfavList([...favList,item])
+        }
 
     }
     const onInsert = (item) => {
@@ -44,7 +44,7 @@ const List = ({ initialList }) => {
         <div >
             {renderColor()}
             <div className="sideBySide">
-                <Table list={list} iconName={"heart outline icon"} iconOnClick={onRemove}></Table>
+                <Table list={list} fav={favList} iconName={"heart outline icon"} iconOnClick={onRemove}></Table>
                 <Table list={favList} iconName={"heart red icon"} iconOnClick={onInsert} color={color}></Table>
             </div>
         </div>

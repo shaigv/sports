@@ -4,6 +4,7 @@ import Header from './Header'
 import Lists from './Lists'
 import Page from './paging'
 import api from '../api/axios'
+import '../App.css'
 
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
         });
         setTotalPages(response.data.meta.total_pages)
         setlist(response.data.data);
+        console.log(response.data.data)
         setLoading(false);
 
     };
@@ -34,6 +36,7 @@ const App = () => {
         setPage(page-1);
     }
     const handleSearch = (value) => {
+        setPage(0)
         setSearch(value)
     }
 
@@ -44,7 +47,7 @@ const App = () => {
     else {
         return (
 
-            <div>
+            <div >
                 <Header></Header>
                     <Search onValueChange={e => handleSearch(e)} />
 

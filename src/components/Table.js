@@ -3,7 +3,7 @@ import View from './View'
 import '../App.css'
 
 
-const Table = ({ list, iconName, iconOnClick, color }) => {
+const Table = ({ list,fav, iconName, iconOnClick, color }) => {
 
     const [view, setView] = useState(false);
     const [player, setPlayer] = useState(false);
@@ -30,6 +30,21 @@ const Table = ({ list, iconName, iconOnClick, color }) => {
         }
 
     }
+    const setIconName=(val)=>{
+        console.log(val,fav)
+        if(fav!==undefined){
+            if(fav.some(i=>i.id===val.id)){
+                return "heart red icon";
+            }
+            else{
+                return iconName;
+            }
+
+        }
+        else{
+            return iconName;
+        }
+    }
     const renderRows = () => {
 
         return (
@@ -38,8 +53,8 @@ const Table = ({ list, iconName, iconOnClick, color }) => {
                     <tr key={val.id} >
                         <td data-label="First_name">{val.first_name}</td>
                         <td data-label="Last_name">{val.last_name}</td>
-                        <td data-label="Favorite">
-                            <i onClick={(e) => iconOnClick(val)} className={iconName}></i>
+                        <td data-label="Favorite">                          
+                            <i onClick={(e) => iconOnClick(val)} className={setIconName(val)}></i>
                         </td>
                         <td data-label="Show">
                             <i onClick={(e) => onClickHandler(val)} className="eye icon"></i>
